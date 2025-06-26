@@ -1,62 +1,60 @@
-import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
-import styles from './ContactStyles.module.css';
+import React, { useState } from "react";
+import { send } from "emailjs-com";
+import styles from "./ContactStyles.module.css"; // ✅ Import your styles
 
-function Contact() {
-  const form = useRef();
-  const [status, setStatus] = useState('');
+export default function Contact() {
+  const [toSend, setToSend] = useState({
+    from_name: "",
+    reply_to: "",
+    message: "",
+  });
 
-  const sendEmail = (e) => {
-  e.preventDefault();
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-  emailjs
-    .sendForm('service_l2o0icn','template_wtlo4h4', form.current, 'user_7xPYeLEzShYLjclM2UQN1')
-    .then(
-      () => {
-        setStatus(' Message sent successfully!');
-        form.current.reset();
-
-        // 👇 Clear the status after 3 seconds
-        setTimeout(() => {
-          setStatus('');
-        }, 3000);
-      },
-      (error) => {
-        setStatus('Failed to send message. Try again later.');
-
-        // 👇 Clear the status after 3 seconds
-        setTimeout(() => {
-          setStatus('');
-        }, 3000);
-
-        console.error(error.text);
-      }
-    );
-};
-
+    send(
+      "service_l2o0icn",
+      "template_wtlo4h4",
+      toSend,
+      "user_7xPYeLEzShYLjclM2UQN1"
+    )
+      .then(() => {
+        alert("Message sent!");
+        e.target.reset();
+      })
+      .catch((error) => alert(error));
+  };
+  
+  const handleChange = (e) => {
+    setToSend({ ...toSend, [e.target.name]: e.target.value });
+  };
   
   return (
     <section id="contact" className={styles.container}>
       <h1 className="sectionTitle">Contact</h1>
-      <form ref={form} onSubmit={sendEmail}>
+      <form onSubmit={onSubmit}>
         <div className="formGroup">
           <label htmlFor="name" hidden>Name</label>
           <input
             type="text"
-            name="user_name"
+            name="from_name"
             id="name"
             placeholder="Name"
             required
+            value={toSend.from_name}
+            onChange={handleChange}
           />
         </div>
         <div className="formGroup">
           <label htmlFor="email" hidden>Email</label>
           <input
             type="email"
-            name="user_email"
+            name="reply_to"
             id="email"
             placeholder="Email"
             required
+            value={toSend.reply_to}
+            onChange={handleChange}
           />
         </div>
         <div className="formGroup">
@@ -66,15 +64,12 @@ function Contact() {
             id="message"
             placeholder="Message"
             required
+            value={toSend.message}
+            onChange={handleChange}
           />
         </div>
         <input className="hover btn" type="submit" value="Submit" />
       </form>
-
-      {/* ✅ Status message */}
-      {status && <p className={styles.statusMessage}>{status}</p>}
     </section>
   );
 }
-
-export default Contact;
