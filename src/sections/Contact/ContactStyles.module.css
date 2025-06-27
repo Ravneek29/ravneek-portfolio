@@ -79,26 +79,8 @@ input[type='submit']:active {
 }
 
 .statusMessage {
-    margin: 20px auto 0;
-    padding: 12px 20px;
-    border-radius: 8px;
-    max-width: 300px;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
-    /* Defaults for text/message background */
-    background-color: #f0f4ff;
-    color: #333;
-    /* Optional: Box shadow for a nicer effect */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.statusMessage.success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.statusMessage.error {
-    background-color: #f8d7da;
-    color: #721c24;
+  margin-top: 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: var(--btn-color);
 }
