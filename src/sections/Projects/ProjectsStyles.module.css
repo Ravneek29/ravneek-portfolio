@@ -40,3 +40,7 @@
         padding: 0 30px;
     }
 }
+
+.projectsContainer img[src*="filter.png"] {
+    transform: scale(1.4);
+}

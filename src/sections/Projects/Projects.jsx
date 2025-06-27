@@ -1,6 +1,7 @@
 import styles from './ProjectsStyles.module.css';
 import dashboard from '../../assets/dashboard.png';
 import todo from '../../assets/to-do.png';
+import lens from '../../assets/code.png';
 import ProjectCard from '../../common/ProjectCard';
 
 function Projects() {
@@ -19,6 +20,12 @@ function Projects() {
           link="https://ravneek29.github.io/WinHacks2021/"
           h3="Dashboard"
           p="Dashboard App"
+        />
+        <ProjectCard
+          src={lens}
+          link="https://snapchat.com/t/0VvywJ1p"
+          h3="AR Lens"
+          p="Mom's Kitchen"
         />
       </div>
     </section>
